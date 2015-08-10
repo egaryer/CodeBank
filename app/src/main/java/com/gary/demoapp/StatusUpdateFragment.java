@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
@@ -44,7 +45,14 @@ public class StatusUpdateFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_statusupdate, container, false);
         WebView webView = (WebView) rootView.findViewById(R.id.webView);
         webView.loadUrl("http://www.linkwish.com/info");
-        webView.setWebViewClient(new WebViewClient());
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return false;
+            }
+        });
         loginHint = (TextView) rootView.findViewById(R.id.tv_login);
         likeView = (LikeView) rootView.findViewById(R.id.likeView);
         likeView.setLikeViewStyle(LikeView.Style.STANDARD);

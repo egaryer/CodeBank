@@ -75,7 +75,7 @@ public class LoginFragment extends Fragment {
         tokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldToken, AccessToken newToken) {
-
+                AccessToken.setCurrentAccessToken(newToken);
             }
         };
         profileTracker = new ProfileTracker() {

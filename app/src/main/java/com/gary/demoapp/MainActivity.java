@@ -1,5 +1,8 @@
 package com.gary.demoapp;
 
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
@@ -9,7 +12,6 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
-import android.view.Window;
 import android.webkit.WebView;
 
 import com.facebook.FacebookSdk;
@@ -17,7 +19,7 @@ import com.facebook.appevents.AppEventsLogger;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-    int page = 1;
+    int page = 100;
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         WebView wv = (WebView) findViewById(R.id.webView);
-        if (keyCode==KeyEvent.KEYCODE_BACK&&wv.canGoBack()){
+        if (keyCode == KeyEvent.KEYCODE_BACK && wv.canGoBack()) {
             wv.goBack();
             return true;
         }
@@ -57,22 +59,20 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        if (position + 1 != page) {
+        if (position != page) {
             Fragment next_content = new Fragment();
-            switch (position + 1) {
+            switch (position) {
+                case 0:
+                    next_content = ADFragment.newInstance(position);
+                    break;
                 case 1:
-                    next_content = ADFragment.newInstance(position + 1);
-                    page = 1;
+                    next_content = LoginFragment.newInstance(position);
                     break;
                 case 2:
-                    next_content = LoginFragment.newInstance(position + 1);
-                    page = 2;
-                    break;
-                case 3:
-                    next_content = StatusUpdateFragment.newInstance(position + 1);
-                    page = 3;
+                    next_content = StatusUpdateFragment.newInstance(position);
                     break;
             }
+            page = position;
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.container, next_content)
@@ -82,13 +82,13 @@ public class MainActivity extends AppCompatActivity
 
     public void onSectionAttached(int number) {
         switch (number) {
-            case 1:
+            case 0:
                 mTitle = getString(R.string.title_section1);
                 break;
-            case 2:
+            case 1:
                 mTitle = getString(R.string.title_section2);
                 break;
-            case 3:
+            case 2:
                 mTitle = getString(R.string.title_section3);
                 break;
         }
@@ -123,8 +123,19 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_aboutme:
+                AlertDialog.Builder aboutMe = new AlertDialog.Builder(this);
+                aboutMe.setMessage("Richard Lo@20150810")
+                        .setTitle(R.string.action_aboutme)
+                        .show();
+                return true;
+            case R.id.action_feedback:
+                Intent it = new Intent(Intent.ACTION_SENDTO);
+                it.setData(Uri.parse("mailto:egaryer@gmail.com"));
+                it.putExtra(Intent.EXTRA_SUBJECT,"使用者意見回饋");
+                startActivity(it);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

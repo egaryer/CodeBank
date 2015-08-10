@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
     <item
-        android:id="@+id/action_example"
+        android:id="@+id/action_feedback"
         android:icon="@drawable/ic_feedback_white_48dp"
         android:title="@string/action_example"
         app:showAsAction="withText|ifRoom" />
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_aboutme"
         android:title="@string/action_aboutme"
         app:showAsAction="never" />
 </menu>
