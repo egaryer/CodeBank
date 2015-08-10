@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">DemoAPP</string>
+
+    <string name="title_section1">AdMob</string>
+    <string name="title_section2">Facebook Login</string>
+    <string name="title_section3">WebView</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Feedback</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="action_aboutme">About me</string>
+
+    <string name="banner_ad_unit_id">ca-app-pub-0109885918808085/9209954907</string>
+
+    <string name="widget_label">DemoWidget</string>
+    <string name="service_label">DemoService</string>
+    <string name="facebook_appid">948942211832331</string>
+
+</resources>
